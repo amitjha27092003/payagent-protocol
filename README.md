@@ -26,3 +26,28 @@ git clone [https://github.com/your-username/payagent-protocol.git](https://githu
 cd payagent-protocol
 npm install
 npm run dev
+
+
+
+
+[ User / External Agent Prompt ]
+               │
+               ▼
+[ PayAgent Parser & Policy Engine ]
+   ├── Catalog Resolution (SKU, Price, Vendor Check)
+   ├── Financial Guardrail Validation
+   │     ├── Hard Transaction Cap (< $500)
+   │     └── Daily Treasury Allowance (< $1200)
+   │
+   ├── Policy Check Passed?
+   │     ├── NO  ──► [ Immediate Policy Decline & Audit Log ]
+   │     │
+   │     └── YES ──► Is Amount > Dual-Sign Cap ($200)?
+   │                   ├── YES ──► [ Await Human Co-Sign Auth ]
+   │                   │                 │ (Authorized)
+   │                   │                 ▼
+   │                   └── NO  ──► [ PayPal Orders v2 Sandbox Capture ]
+                                         │
+                                         ▼
+                            [ Treasury Balance Settled ]
+                            [ Cryptographic Audit Receipt ]
