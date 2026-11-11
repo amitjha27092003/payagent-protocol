@@ -1,53 +1,15 @@
-# PayAgent Protocol ⚡🤖
+## 🛠️ PayPal Developer Sandbox & AI Integration Architecture
 
-> Autonomous Intent-to-Payment Orchestrator for PayPal Sandbox with Zero-Trust Financial Guardrails. Built for the **PayPal AI Hackathon 2026**.
+### 1. PayPal Developer Platform (Sandbox)
+- **Environment**: Configured for PayPal Developer Sandbox (`https://api-m.sandbox.paypal.com`).
+- **APIs Used**: PayPal Orders v2 REST API for automated intent creation, capture, and settlement.
+- **Workflow**: Autonomous verification of AI agent invoice authorization requests using Sandbox Client Credentials (`PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET`).
 
-## 📌 Problem Statement
-As autonomous AI agents execute tasks across the web, granting them unconstrained access to capital leads to unauthorized billing, prompt injections, and catastrophic overspending. Existing payment gateways lack agent-native guardrails like policy limits, dual-sign human escalation, and vendor allowlisting.
+### 2. AI Reasoning & Guardrails
+- **Model / Engine**: Multi-step AI agent orchestration powered by Google Gemini API / LLM decision engine.
+- **Role**: Validates transaction risk thresholds, parses merchant intents, and triggers automated micro-settlement calls to PayPal Sandbox endpoints.
 
-## 💡 Solution: PayAgent Protocol
-PayAgent Protocol acts as a deterministic firewall between AI agents and PayPal APIs:
-- **Intent Parsing & Verification**: Extracts catalog requirements, quantities, and pricing constraints.
-- **Zero-Trust Financial Policies**: Enforces hard transaction caps ($500) and daily budgets ($1200).
-- **Dynamic Dual-Sign Co-Signing**: Automatically pauses transactions exceeding human review thresholds ($200) until co-signed.
-- **Automated Sandbox Capture**: Dispatches pre-authorized payloads using the PayPal Orders v2 schema.
-
-## 🛠 Tech Stack
-- **Framework**: Next.js 16 (App Router)
-- **Styling**: Tailwind CSS, Lucide Icons
-- **Language**: TypeScript
-- **Payment Layer**: PayPal Orders API v2 (Sandbox)
-- **Deployment**: Vercel
-
-## 🚀 Getting Started Locally
-
-```bash
-git clone [https://github.com/your-username/payagent-protocol.git](https://github.com/your-username/payagent-protocol.git)
-cd payagent-protocol
-npm install
-npm run dev
-
-
-
-
-[ User / External Agent Prompt ]
-               │
-               ▼
-[ PayAgent Parser & Policy Engine ]
-   ├── Catalog Resolution (SKU, Price, Vendor Check)
-   ├── Financial Guardrail Validation
-   │     ├── Hard Transaction Cap (< $500)
-   │     └── Daily Treasury Allowance (< $1200)
-   │
-   ├── Policy Check Passed?
-   │     ├── NO  ──► [ Immediate Policy Decline & Audit Log ]
-   │     │
-   │     └── YES ──► Is Amount > Dual-Sign Cap ($200)?
-   │                   ├── YES ──► [ Await Human Co-Sign Auth ]
-   │                   │                 │ (Authorized)
-   │                   │                 ▼
-   │                   └── NO  ──► [ PayPal Orders v2 Sandbox Capture ]
-                                         │
-                                         ▼
-                            [ Treasury Balance Settled ]
-                            [ Cryptographic Audit Receipt ]
+### 3. Local Setup & Testing
+1. Clone the repository and install dependencies:
+   ```bash
+   npm install
